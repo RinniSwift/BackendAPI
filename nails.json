@@ -2,18 +2,20 @@
 	"Nails": [
 
 		{
-			"Boniva Nails":
+			"Boniva Nails": {
 				"sub category": ["manicure", "pedicure", "special manicure", "gel manicure"],
 				"micro sub": ["base manicure", "base pedicure", "add-on", "gel"],
 				"address": "1929 Lombard St",
 				"hours": "Tues-Sat 10am-7pm"
+			}
 		},
 		{
-			"Creative Nails care":
+			"Creative Nails care": {
 				"sub category": ["manicure", "pedicure", "gel"],
 				"micro sub": ["base manicure", "base pedicure", "add-on", "gel"],
 				"address": "191 Franklin St",
 				"hours": "Fri-Wed 10am-7pm"
+			}
 		}
 	]
 }
