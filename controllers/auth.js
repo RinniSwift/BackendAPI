@@ -24,16 +24,5 @@ module.exports = app => {
     })
 
 
-    // This function not getting called???
-    function signupViaAjax() {
-       fetch("/sign-up")
-         .then(function(data) {
-           // Here you get the data to modify as you please
-           console.log("Get the data!!")
-         })
-         .catch(function(error) {
-           // If there is any error you will catch them here
-           console.log("error")
-         });
-     }
+    
 };
