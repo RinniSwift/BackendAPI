@@ -9,7 +9,7 @@ require('./controllers/auth.js')(app);
 
 const mongoose = require('mongoose');
 
-app.use(bodyParser.json());         // Use Body Parser
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());        // Add after body parser initialization!
 
