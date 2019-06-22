@@ -11,12 +11,12 @@ const User = require('../models/user');
 // - Routes 
 
 router.get('/',(req,res) => {
-  console.log("in here")
   res.status(200).render('sign-up')
+  console.log("in GET method of route sign-up")
 })
 
 router.post('/',(req,res) => {
-  console.log("in here")
+  console.log("in POST method of route sign-up")
   const newUser = new User(req.body);
   newUser.save()
   .then( (savedUser) => {
@@ -24,6 +24,7 @@ router.post('/',(req,res) => {
       console.log("signed token in jwt");
       res.json({ token });
   }).catch( (error) => {
+    console.log("cant create new User")
     res.status(400).json({ "error" : error })
   })
 })
