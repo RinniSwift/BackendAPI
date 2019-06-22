@@ -1,10 +1,12 @@
-// controllers/allServices.js
+// - controllers/allServices.js
 
 const express = require('express');
 
 const router = express.Router();
 const fs = require('fs');
 
+
+// - Routes 
 
 router.get('/',(req,res) => {
    fs.readFile('serviceCategory.json', (err, data) => {
