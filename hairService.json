@@ -1,0 +1,57 @@
+{
+    "hair": [
+        {
+            "eyebrow": [
+                {
+                    "eyebrow_tinting": [
+
+                    ]
+                },
+                {
+                    "tinting": [
+
+                    ]
+                }
+            ]
+        },
+        {
+            "eyelash": [
+                {
+                    "eyelash_extension": [
+
+                    ]
+                },
+                {
+                    "eyelash_lift": [
+
+                    ]
+                },
+                {
+                    "eyelash_perm": [
+
+                    ]
+                },
+                {
+                    "eyelash_removal": [
+
+                    ]
+                },
+                {
+                    "eyelash_tinting": [
+
+                    ]
+                },
+                {
+                    "tinting": [
+
+                    ]
+                }
+            ]
+        },
+        {
+            "package_deal": [
+
+            ]
+        }
+    ]
+}

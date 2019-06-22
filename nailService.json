@@ -1,0 +1,229 @@
+
+{
+    "nails": [
+        {
+            "acrylic": [
+                {
+                    "acrylic_fill": [
+                        {
+                            "location": "Doan's Nail",
+                            "hours": "Mon-Sat 10am-7pm",
+                            "discounted": false,
+                            "description": "",
+                            "service_name": "Acrylic Fill-In",
+                            "original_price": "25+",
+                            "discount_price": "",
+                            "address": "500 Sutter St, Ste 812, San Francisco, CA 94102",
+                            "number": 4155877969
+                        },
+                        {
+                            "location": "Fingertips Nail Salon",
+                            "hours": "Mon - Sat 9:30am-7:30pm",
+                            "discounted": false,
+                            "description": "",
+                            "service_name": "Acrylic Fill-In",
+                            "original_price": "25",
+                            "discount_price": "",
+                            "address": "1309 Sutter St, San Francisco, CA 94109",
+                            "number": 4155672092
+                        }
+                    ]
+                },
+                {
+                    "acrylic_french": [
+
+                    ]
+                },
+                {
+                    "acrylic_full_set": [
+
+                    ]
+                },
+                {
+                    "acrylic_removal": [
+
+                    ]
+                },
+                {
+                    "acrylic_repair": [
+
+                    ]
+                },
+                {
+                    "other": [
+
+                    ]
+                }
+            ]
+        },
+        {
+            "children": [
+                {
+                    "mani_pedi": [
+
+                    ]
+                },
+                {
+                    "manicure": [
+
+                    ]
+                },
+                {
+                    "pedicure": [
+
+                    ]
+                }
+            ]
+        },
+        {
+            "dipping-Powder": [
+                {
+                    "extension": [
+
+                    ]
+                },
+                {
+                    "full_set": [
+
+                    ]
+                }
+            ]
+        },
+        {
+            "manicure": [
+                {
+                    "base_manicure": [
+
+                    ]
+                },
+                {
+                    "french": [
+
+                    ]
+                },
+                {
+                    "gel_french_manicure": [
+
+                    ]
+                },
+                {
+                    "gel_manicure": [
+
+                    ]
+                },
+                {
+                    "mens_manicure": [
+
+                    ]
+                },
+                {
+                    "specialty_gel_manicure": [
+
+                    ]
+                },
+                {
+                    "specialty_manicure": [
+
+                    ]
+                }
+            ]
+        },
+        {
+            "mani-pedi": [
+                {
+                    "base_mani_pedi": [
+
+                    ]
+                },
+                {
+                    "base_mani_specialty_pedi": [
+
+                    ]
+                },
+                {
+                    "childrens_mani_pedi": [
+
+                    ]
+                },
+                {
+                    "gel_mani_pedi": [
+
+                    ]
+                },
+                {
+                    "gel_mani_reg_pedi": [
+
+                    ]
+                },
+                {
+                    "gel_mani_specialty_pedi": [
+
+                    ]
+                },
+                {
+                    "mani_pedi": [
+
+                    ]
+                },
+                {
+                    "mens_mani_pedi": [
+
+                    ]
+                },
+                {
+                    "specialty_mani_pedi": [
+
+                    ]
+                }
+            ]
+        },
+        {
+            "pedicure": [
+                {
+                    "base_pedicure": [
+
+                    ]
+                },
+                {
+                    "gel_french_pedicure": [
+
+                    ]
+                },
+                {
+                    "gel_pedicure": [
+
+                    ]
+                },
+                {
+                    "mens_pedicure": [
+
+                    ]
+                },
+                {
+                    "polish_change_feet": [
+
+                    ]
+                },
+                {
+                    "specialty_pedicure": [
+
+                    ]
+                }
+            ]
+        },
+        {
+            "polish change": [
+                {
+                    "polish_change_feet": [
+
+                    ]
+                },
+                {
+                    "polish_change_hands": [
+
+                    ]
+                }
+            ]
+        }
+    ]
+}
