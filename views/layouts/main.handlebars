@@ -10,18 +10,25 @@
         {{{body}}}
     </body>
 
+
+    {{!-- Functions --}}
+
     <script>
-        function signupViaAjax() {
-          fetch("/sign-up", { method: 'POST'} , { body: JSON.stringify({username: document.getElementById('username'), password: document.getElementById('password')})
-          })
-            .then(function(data) {
-              // Here you get the data to modify as you please
-              console.log(data)
-            })
-            .catch(function(error) {
-              // If there is any error you will catch them here
-              console.log("error")
-            });
-        }
-     </script>
+
+      function signupViaAjax() {
+        fetch("/sign-up", { method: 'POST', body: JSON.stringify({username: document.getElementById('username'), password: document.getElementById('password')})
+        })
+        .then(function(data) {
+          // Here you get the data to modify as you please
+          console.log("in the then function with data")
+          // console.log(body)
+        })
+        .catch(function(error) {
+          // If there is any error you will catch them here
+          console.log("in the error page error")
+          console.log(error)
+        });
+      }
+
+    </script>
 </html>
