@@ -1,45 +1,40 @@
-var exphbs = require('express-handlebars')
-const bodyParser = require('body-parser');
-const express = require('express')
-const expressValidator = require('express-validator');
-const app = express()
-const fs = require('fs');
+// - app.js
 
-require('./controllers/auth.js')(app);
+const exphbs = require('express-handlebars'),
+	  bodyParser = require('body-parser'),
+	  mongoose = require('mongoose'),
+	  express = require('express'),
+	  expressValidator = require('express-validator'),
+	  app = express();
 
-const mongoose = require('mongoose');
+const allServiceRouter = require('./controllers/allServices'),
+	  authRouter = require('./controllers/auth');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(expressValidator());        // Add after body parser initialization!
+
+// - Initial Setup
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-// Reading .json files in other files
-fs.readFile('nails.json', (err, data) => {
-    if (err) throw err;
-    nails = JSON.parse(data);
-});
 
-fs.readFile('serviceCategory.json', (err, data) => {
-    if (err) throw err;
-    allServices = JSON.parse(data);
-});
+// - Middleware
 
-// GET - home page
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(expressValidator());  // Add after body parser initialization!
+
+
+// - Routes
+
 app.get('/', (req, res) => {
 	res.send('Hello World!')
 })
 
-// GET - paths
-app.get('/nails', (req, res) => {
-	res.json(nails)
-})
+app.use('/allServices', allServiceRouter)
+app.use('/sign-up', authRouter)
 
-app.get('/allServices', (req, res) => {
-    res.json(allServices)
-})
+
+// - Server Setup
 
 app.listen(3000, () => {
  console.log('App listening on port 3000!')
