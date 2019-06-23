@@ -16,16 +16,14 @@
     <script>
 
       function signupViaAjax() {
-        fetch("/sign-up", { method: 'POST', body: JSON.stringify({username: document.getElementById('username'), password: document.getElementById('password')})
+        fetch("/sign-up", { method: 'POST', body: JSON.stringify({username: document.getElementById('username').value, password: document.getElementById('password').value}), headers: {"Content-Type": "application/json"}
         })
         .then(function(data) {
           // Here you get the data to modify as you please
-          console.log("in the then function with data")
-          // console.log(body)
+          console.log(data)
         })
         .catch(function(error) {
           // If there is any error you will catch them here
-          console.log("in the error page error")
           console.log(error)
         });
       }
