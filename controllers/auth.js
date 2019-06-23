@@ -1,9 +1,8 @@
 // - controllers/auth.js
 
 const express = require('express'),
+      jwt = require('jsonwebtoken'),
       router = express.Router();
-
-const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
@@ -20,11 +19,12 @@ router.post('/',(req,res) => {
   const newUser = new User(req.body);
   newUser.save()
   .then( (savedUser) => {
-      const token = jwt.sign({ _id: user._id }, process.env.SECRET);
+      const token = jwt.sign({ _id: savedUser._id }, process.env.SECRET);
       console.log("signed token in jwt");
       res.json({ token });
   }).catch( (error) => {
     console.log("cant create new User")
+    console.log(req.body)
     res.status(400).json({ "error" : error })
   })
 })
