@@ -6,10 +6,10 @@ const mongoose = require('mongoose'),
 const UserSchema = new Schema({
    createdAt: { type: Date },
    updatedAt: { type: Date },
-   email: { type: String, unique: true, required: true },
+   username: { type: String, unique: true, required: true },
    password: { type: String, required: true },
-   first: { type: String, required: true },
-   last: { type: String, required: true }
+   first: { type: String, required: false },
+   last: { type: String, required: false }
 });
 
 UserSchema.pre("save", function(next) {
@@ -26,9 +26,10 @@ UserSchema.pre("save", function(next) {
      return next();
    }
    bcrypt.genSalt(10, function(err, salt) {
+    console.log(err)
      bcrypt.hash(user.password, salt, function(err, hash) {
        user.password = hash;
-       next();
+       return next();
      });
    });
 });
