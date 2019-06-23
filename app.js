@@ -1,5 +1,7 @@
 // - app.js
 
+require('dotenv').config();
+
 const exphbs = require('express-handlebars'),
 	  bodyParser = require('body-parser'),
 	  mongoose = require('mongoose'),
@@ -9,6 +11,11 @@ const exphbs = require('express-handlebars'),
 
 const allServiceRouter = require('./controllers/allServices'),
 	  authRouter = require('./controllers/auth');
+
+
+// - Database Setup
+
+mongoose.connect(process.env.DATABASEURI);
 
 
 // - Initial Setup
