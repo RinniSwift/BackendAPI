@@ -10,9 +10,17 @@
         {{{body}}}
     </body>
 
+<<<<<<< HEAD
     {{!-- Functions --}}
 
     <script>
+=======
+
+    {{!-- Functions --}}
+
+    <script>
+
+>>>>>>> f3983b52ee00b1b86734c010d5345d9d2c2fb28d
       function signupViaAjax() {
         fetch("/sign-up", { method: 'POST', body: JSON.stringify({username: document.getElementById('username').value, password: document.getElementById('password').value}), headers: {"Content-Type": "application/json"}
         })
@@ -25,5 +33,9 @@
           console.log(error)
         });
       }
+<<<<<<< HEAD
+=======
+
+>>>>>>> f3983b52ee00b1b86734c010d5345d9d2c2fb28d
     </script>
 </html>

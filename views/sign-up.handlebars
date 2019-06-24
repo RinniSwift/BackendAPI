@@ -1,8 +1,9 @@
+{{!-- views/sign-up.handlebars --}}
 
 <div class="row">
-    <form action="/sign-up" method="POST" onsubmit="return false;">
-      <input type="text" size="30" value="" placeholder="username" required>
-      <input type="password" size="30" value="" placeholder="password" required>
+    <form action="/sign-up" method="post" onsubmit="return false;">
+      <input id="username" name="username" type="text" size="30" value="" placeholder="username" required>
+      <input id="password" name="password" type="password" size="30" value="" placeholder="password" required>
       <input type="submit" value="Sign In" onclick="signupViaAjax()">
     </form>
-</div>
+</div> 
