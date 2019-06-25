@@ -6,8 +6,7 @@ const express = require('express'),
 
 const User = require('../models/user');
 
-
-// - Routes 
+// - Routes
 
 router.get('/',(req,res) => {
   res.status(200).render('sign-up')
