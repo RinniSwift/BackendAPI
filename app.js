@@ -1,6 +1,7 @@
 // - app.js
 
 require('dotenv').config();
+require('./data/service-db');
 
 const exphbs = require('express-handlebars'),
 	  bodyParser = require('body-parser'),

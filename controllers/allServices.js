@@ -6,7 +6,7 @@ const router = express.Router();
 const fs = require('fs');
 
 
-// - Routes 
+// - Routes
 
 router.get('/',(req,res) => {
    fs.readFile('serviceCategory.json', (err, data) => {
