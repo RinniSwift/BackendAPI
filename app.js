@@ -1,7 +1,6 @@
 // - app.js
 
 require('dotenv').config();
-require('./data/service-db');
 
 const exphbs = require('express-handlebars'),
 	  bodyParser = require('body-parser'),
@@ -12,6 +11,14 @@ const exphbs = require('express-handlebars'),
 
 const allServiceRouter = require('./controllers/allServices'),
 	  authRouter = require('./controllers/auth');
+
+
+// - Model Setup
+
+const macroCategory = require('./models/macroCategory'),
+const microCategory = require('./models/microCategory'),
+const serviceCategory = require('./models/serviceCategory'),
+const serviceLocation = require('./models/serviceLocation');
 
 
 // - Database Setup
