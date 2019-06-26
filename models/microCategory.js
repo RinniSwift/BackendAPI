@@ -4,9 +4,9 @@
 const mongoose = require('mongoose'),
 	  Schema = mongoose.Schema;
 
-	  
+
 const MicroCategory = new Schema({
-	name: { type: String },
+	name: { type: String, required: true },
 	service_locations: [{ type: Schema.Types.ObjectId, ref: "ServiceLocation" }]
 });
 

@@ -6,7 +6,7 @@ const mongoose = require('mongoose'),
 
 
 const MacroCategory = new Schema({
-	name: { type: String },
+	name: { type: String, required: true },
 	micro_categories: [{ type: Schema.Types.ObjectId, ref: "MicroCategory" }]
 });
 
