@@ -15,9 +15,9 @@ const allServiceRouter = require('./controllers/allServices'),
 
 // - Model Setup
 
-const macroCategory = require('./models/macroCategory'),
-const microCategory = require('./models/microCategory'),
-const serviceCategory = require('./models/serviceCategory'),
+const macroCategory = require('./models/macroCategory');
+const microCategory = require('./models/microCategory');
+const serviceCategory = require('./models/serviceCategory');
 const serviceLocation = require('./models/serviceLocation');
 
 
