@@ -82,8 +82,6 @@ fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv
 
 					})
 
-
-
 				})
 
 			})
