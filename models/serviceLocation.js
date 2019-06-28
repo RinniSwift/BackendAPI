@@ -6,15 +6,14 @@ const mongoose = require('mongoose'),
 
 
 const ServiceLocation = new Schema({
-	location: { type: String, required: true },
-	hourse: { type: String, required: true },
-	discounted: { type: Boolean, required: true },
-	description: { type: String, required: false },
-	service_name: { type: String, required: true },
-	original_price: { type: String, required: false },
-	discount_price: { type: String, required: false },
-	address: { type: String, required: true },
-	number: { type: Number, required: false }
+	name: { type: String, required: true },
+	hours: { type: String, required: true },
+	address: { type: String, required: false },
+	number: { type: String, required: false },
+	service_categories: [{ type: Schema.Types.ObjectId, ref: "ServiceCategory" }],
+	macro_categories: [{ type: Schema.Types.ObjectId, ref: "MacroCategory" }],
+	micro_categories: [{ type: Schema.Types.ObjectId, ref: "MicroCategory" }],
+	services: [{ type: Schema.Types.ObjectId, ref: "ServiceCategory" }]
 });
 
 module.exports = mongoose.model('ServiceLocation', ServiceLocation)

@@ -7,7 +7,7 @@ const mongoose = require('mongoose'),
 
 const MicroCategory = new Schema({
 	name: { type: String, required: true },
-	service_locations: [{ type: Schema.Types.ObjectId, ref: "ServiceLocation" }]
+	services: [{ type: Schema.Types.ObjectId, ref: "Service" }]
 });
 
 module.exports = mongoose.model('MicroCategory', MicroCategory)
