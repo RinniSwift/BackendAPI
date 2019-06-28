@@ -25,12 +25,14 @@ const serviceCategory = require('./serviceCategory');
 const macroCategory = require('./macroCategory');
 const microCategory = require('./microCategory');
 const serviceLocation = require('./serviceLocation');
+const service = require('./service');
 
 
 macroCategory.plugin(findOrCreate)
 microCategory.plugin(findOrCreate)
 serviceCategory.plugin(findOrCreate)
 serviceLocation.plugin(findOrCreate)
+service.plugin(findOrCreate)
 
 
 fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv')
@@ -51,7 +53,7 @@ fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv
 				// 4. Find or create macro category
 				macroCategory.findOrCreate({ name: data["Macro Category"] }, (err, macObj) => {
 
-					// 5. Attach macro category to service location and service category?
+					// 5. Attach macro category to service location and service category
 					if locObj.macro_categories.findById(macObj._id) == none:
 						locObj.macro_categories.push(macObj._id)
 					if catObj.macro_categories.findById(macObj._id) == none:
@@ -67,10 +69,8 @@ fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv
 							locObj.micro_categories.push(micObj._id)
 
 						// 8. Find or create service
-						service.findOrCreate({name: data["Service"], 
-												description: data["Description"],
-											 	original_price: data["Original Price"],
-											 	discounted_price: data["Discounted Price"] }, (err, servObj) => {
+						const serviceObject = {name: data["Service"], description: data["Description"], original_price: data["Original Price"], discounted: data["Discounted?"],discounted_price: data["Discounted Price"] }
+						service.findOrCreate(serviceObject, (err, servObj) => {
 
 							// 9. Attach service to micro category and service location
 							if micObj.services.findById(servObj._id) == none:
@@ -137,19 +137,3 @@ service:
 	- [service location id's]
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
