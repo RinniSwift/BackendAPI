@@ -17,9 +17,9 @@ const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const findOrCreate = require('mongoose-findorcreate')
 const csv = require('csv-parser')
 const fs = require('fs')
+
 
 // - Model Setup
 
@@ -29,65 +29,6 @@ const microCategory = require('./microCategory');
 const serviceLocation = require('./serviceLocation');
 const service = require('./service');
 
-// - findOneAndUpdate
-
-
-// fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv')
-// 	.pipe(csv())
-// 	.on('data', (data) => {
-
-// 		var query = { name: data["Location"], hours: data["Hours"] };
-// 		serviceLocation.findOneAndUpdate(query, query, {upsert: true, returnNewDocument: true, readPreference: 'secondary'}, function (err, doc) {
-
-// 		})
-		
-// })
-
-// - end findOneAndUpdate
-
-
-// - findOne
-
-
-// fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv')
-// 	.pipe(csv())
-// 	.on('data', (data) => {
-
-	// 1.
-		// var query = { name: data["Location"]};
-		// const doc = serviceLocation.findOne(query, 'name', { readPreference: 'secondary' })
-		// if (!doc.length) {
-		// 	const newLocObj = serviceLocation.create({ name: data["Location"], hours: data["Hours"] })
-		// } else {
-		// 	console.log("nothing there")
-		// }
-
-
-	// 2.
-		// var query = { name: data["Location"] };
-		// serviceLocation.findOne(query, 'name', { readPreference: 'secondary' }, function (err, doc) {
-
-		// 	if (err) {
-		// 		console.log("error reading object")
-		// 		console.log(err)
-		// 	} 
-
-		// 	if (doc) {
-		// 		console.log(doc)
-		// 	} else {
-		// 		// Create serviceLocation
-		// 		const newLocObj = serviceLocation.create({ name: data["Location"], hours: data["Hours"] })
-		// 	}
-
-		// })
-		
-// })
-
-
-// - end findOne
-
-
-// - findOne
 
 var result = []
 
@@ -125,58 +66,10 @@ fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv
 })
 
 
-// - end findOne
-
-
-// - async
-	// const hello = async () => {
-
-	// 	// 1. Find or create serviceLocation
-	// 	const locObj = await serviceLocation.find({ name: data["Location"], hours: data["Hours"] }, (err, locObjj) => {
-	// 		var locationObj;
-	// 		if (locObjj.length) {
-	// 			console.log("found object")
-	// 			locationObj = locObjj
-	// 			console.log(locObjj)
-	// 		} else {
-	// 			console.log("did not find object")
-	// 			const creat = async () => {
-	// 				const locObj = await serviceLocation.create({ name: data["Location"], hours: data["Hours"] })
-	// 				locationObj = locObj
-	// 			}
-				
-	// 			creat()
-	// 		}
-	// 	});
-
-		// var locationObj;
-		// if (locObj) {
-		// 	// console.log("found object")
-		// 	locationObj = locObj
-		// 	console.log(locObj)
-		// } else {
-		// 	// Create serviceLocation
-		// 	console.log("didn't find object")
-		// 	const locObj = await serviceLocation.create({ name: data["Location"], hours: data["Hours"] })
-
-		// 	locationObj = locObj
-		// 	creat()
-		// }
-	// }
-
-		// 2. Find or create service category
-	// hello()
-// })
-		
-
-
 
 
 
 		// - FINDORCREATE
-
-
-
 
 
 // fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv')
@@ -246,10 +139,6 @@ fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv
 
 
 
-
-
-
-
 /*
 
 
@@ -289,25 +178,3 @@ service:
 	- [service location id's]
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
