@@ -101,21 +101,26 @@ fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv
 	.on('end', async () => {
 		console.log("END")
 
-		async function processArray(result) {
+		async function process(result) {
 			for (const item of result) {
 
-				const query = await serviceLocation.findOne({ name: item["Location"], hours: item["Hours"] })
-				if (query == null) {
-					console.log("No Item")
-					await serviceLocation.create({ name: item["Location"], hours: item["Hours"] })
-				} else if (query) {
-					console.log("Found Item")
-				}
+				await serviceLocation.findOne({ name: item["Location"], hours: item["Hours"] }, async function(err, res) {
+					if (err) {
+						console.log(err)
+					}
+
+					if (res) {
+						console.log("Found item")
+					} else {
+						console.log("No item")
+						await serviceLocation.create({ name: item["Location"], hours: item["Hours"] })
+					}
+				})
 
 			}
-			console.log('Done!');
+			console.log('Done!')
 		}
-		await processArray(result)
+		await process(result)
 		
 })
 
