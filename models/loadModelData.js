@@ -32,7 +32,7 @@ const service = require('./service');
 
 var result = []
 
-fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv')
+fs.createReadStream('sampleData.csv')
 	.pipe(csv())
 	.on('data', (data) => {
 
@@ -43,22 +43,58 @@ fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv
 		console.log("END")
 
 		async function process(result) {
+
 			for (const item of result) {
 
+				// 1. Find or create service location
 				await serviceLocation.findOne({ name: item["Location"], hours: item["Hours"] }, async function(err, res) {
 					if (err) {
 						console.log(err)
 					}
 
+					var locObj;
 					if (res) {
-						console.log("Found item")
+						locObj = res
 					} else {
-						console.log("No item")
-						await serviceLocation.create({ name: item["Location"], hours: item["Hours"] })
+						const locationObject = await serviceLocation.create({ name: item["Location"], hours: item["Hours"] })
+						locObj = locationObject
 					}
-				})
+
+
+					// Find or create service category
+					await serviceCategory.findOne({ name: item["Service Category"] }, async function (err, obj) {
+						if (err) {
+							console.log(err)
+						} 
+
+						if (obj) {
+							console.log("Found object")
+							await serviceLocation.findOne({ 'service_categories.name': { name: item["Service Category"] }}, async function (err, obj) {
+								if (err) {
+									console.log(err)
+								}
+
+								if (obj) {
+									console.log("Found serviceCategory object")
+								} else {
+									console.log("No serviceCategory object")
+									// ERROR: not pushing to the array
+									locObj.service_categories.push(obj._id)
+								}
+							})
+
+						} else {
+							console.log("No object")
+							const catObj = await serviceCategory.create({ name: item["Service Category"] })
+							// ERROR:  not pushing to the array
+							locObj.service_categories.push(catObj._id) 
+						}
+					})
+
+				}) 
 
 			}
+
 			console.log('Done!')
 		}
 		await process(result)
@@ -72,7 +108,7 @@ fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv
 		// - FINDORCREATE
 
 
-// fs.createReadStream('SF Service & Pricing Data.xlsx - San Francisco Services.csv')
+// fs.createReadStream('sampleData.csv')
 // 	.pipe(csv())
 // 	.on('data', (data) => {
 
