@@ -61,33 +61,28 @@ fs.createReadStream('sampleData.csv')
 					}
 
 
-					// Find or create service category
+					// 2. Find or create service category
 					await serviceCategory.findOne({ name: item["Service Category"] }, async function (err, obj) {
 						if (err) {
 							console.log(err)
 						} 
 
+						var catObj;
 						if (obj) {
-							console.log("Found object")
-							await serviceLocation.findOne({ 'service_categories.name': { name: item["Service Category"] }}, async function (err, obj) {
-								if (err) {
-									console.log(err)
-								}
-
-								if (obj) {
-									console.log("Found serviceCategory object")
-								} else {
-									console.log("No serviceCategory object")
-									// ERROR: not pushing to the array
-									locObj.service_categories.push(obj._id)
-								}
-							})
-
+							catObj = obj
 						} else {
-							console.log("No object")
-							const catObj = await serviceCategory.create({ name: item["Service Category"] })
-							// ERROR:  not pushing to the array
-							locObj.service_categories.push(catObj._id) 
+							const catObject = await serviceCategory.create({ name: item["Service Category"] })
+							catObj = catObject
+						}
+
+						
+						// 3. Attach service category to service location (if not already in there)
+						const serviceCats = locObj.service_categories
+						const matchedCats = serviceCats.filter(item => item._id == String(catObj._id))
+
+						if (shouldAdd(matchedCats)) {
+							locObj.service_categories.push(catObj._id)
+							locObj.save()
 						}
 					})
 
@@ -101,6 +96,16 @@ fs.createReadStream('sampleData.csv')
 		
 })
 
+
+/// Use this function if you want to check if an array is empty. Returns true if is, else false. Used to indicate empty arrays.
+function shouldAdd(items) {
+	console.log(items)
+	if (items.length == 0) {
+		return true
+	} else {
+		return false
+	}
+}
 
 
 
