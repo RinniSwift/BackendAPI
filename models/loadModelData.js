@@ -84,6 +84,23 @@ fs.createReadStream('sampleData.csv')
 							locObj.save()
 						}
 
+
+						// 4. Find or create macro category
+						await macroCategory.findOne({ name: item["Macro Category"] }, async function (err, obj) {
+							if (err) {
+								console.log(err)
+							}
+
+							var macObj;
+							if (obj) {
+								macObj = obj
+							} else {
+								const macObject = await macroCategory.create({ name: item["Macro Category"] })
+								macObj = macObject
+							}
+
+						})
+
 					})
 
 				}) 
