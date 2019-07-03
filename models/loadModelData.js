@@ -77,13 +77,13 @@ fs.createReadStream('sampleData.csv')
 
 						
 						// 3. Attach service category to service location (if not already in there)
-						const serviceCats = locObj.service_categories
-						const matchedCats = serviceCats.filter(item => item._id == String(catObj._id))
+						const matchedCats = await locObj.service_categories.filter(item => item._id == String(catObj._id))
 
-						if (shouldAdd(matchedCats)) {
-							locObj.service_categories.push(catObj._id)
+						if (shouldAddTo(matchedCats)) {
+							await locObj.service_categories.push(catObj._id)
 							locObj.save()
 						}
+
 					})
 
 				}) 
@@ -98,8 +98,7 @@ fs.createReadStream('sampleData.csv')
 
 
 /// Use this function if you want to check if an array is empty. Returns true if is, else false. Used to indicate empty arrays.
-function shouldAdd(items) {
-	console.log(items)
+function shouldAddTo(items) {
 	if (items.length == 0) {
 		return true
 	} else {
