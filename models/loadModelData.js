@@ -5,10 +5,10 @@
 	// Attach service category to service location (if not already in there) /
 	// find or create macro category /
 	// attach macro category to service location and service category (if not already in there) /
-	// find or create micro category /
-	// attach micro category to service location and macro category (if not already in there) /
-	// find or create service /
-	// attach service to micro category and service location (if not already in there) /
+	// find or create micro category 
+	// attach micro category to service location and macro category (if not already in there) 
+	// find or create service 
+	// attach service to micro category and service location (if not already in there) 
 
 
 // - Initial Setup
@@ -110,6 +110,23 @@ fs.createReadStream('sampleData.csv')
 								await catObj.macro_categories.push(macObj._id)
 								catObj.save()
 							}
+
+
+							// 6. Find or create micro category
+							await microCategory.findOne({ name: item["Micro Category"] }, async function (err, obj) {
+								if (err) {
+									console.log(err)
+								}
+
+								var micObj;
+								if (obj) {
+									micObj = obj
+								} else {
+									const micObject = await microCategory.create({ name: item["Micro Category"] })
+									micObj = micObject
+								}
+								
+							})
 
 						})
 
