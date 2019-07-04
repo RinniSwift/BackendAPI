@@ -78,7 +78,6 @@ fs.createReadStream('sampleData.csv')
 						
 						// 3. Attach service category to service location (if not already in there)
 						const matchedCats = await locObj.service_categories.filter(item => item._id == String(catObj._id))
-
 						if (shouldAddTo(matchedCats)) {
 							await locObj.service_categories.push(catObj._id)
 							locObj.save()
@@ -97,6 +96,19 @@ fs.createReadStream('sampleData.csv')
 							} else {
 								const macObject = await macroCategory.create({ name: item["Macro Category"] })
 								macObj = macObject
+							}
+
+							// 5. Attach macro category to - service location and - service category (if not already in there)
+							const matchedMacsLoc = await locObj.macro_categories.filter(item => item._id == String(macObj._id))
+							if (shouldAddTo(matchedMacsLoc)) {
+								await locObj.macro_categories.push(macObj._id)
+								locObj.save()
+							}
+							const matchedMacsCat = await catObj.macro_categories.filter(item => item._id == String(macObj._id))
+							console.log(matchedMacsCat)
+							if (shouldAddTo(matchedMacsCat)) {
+								await catObj.macro_categories.push(macObj._id)
+								catObj.save()
 							}
 
 						})
