@@ -6,7 +6,7 @@
 	// find or create macro category /
 	// attach macro category to service location and service category (if not already in there) /
 	// find or create micro category /
-	// attach micro category to service location and macro category (if not already in there) 
+	// attach micro category to service location and macro category (if not already in there) /
 	// find or create service 
 	// attach service to micro category and service location (if not already in there) 
 
@@ -105,7 +105,6 @@ fs.createReadStream('sampleData.csv')
 								locObj.save()
 							}
 							const matchedMacsCat = await catObj.macro_categories.filter(item => item._id == String(macObj._id))
-							console.log(matchedMacsCat)
 							if (shouldAddTo(matchedMacsCat)) {
 								await catObj.macro_categories.push(macObj._id)
 								catObj.save()
@@ -138,6 +137,24 @@ fs.createReadStream('sampleData.csv')
 									await macObj.micro_categories.push(micObj._id)
 									macObj.save()
 								}
+
+
+								// 8. Find or create service
+								await service.findOne({ name: item["Service"], discounted: item["Discounted?"], original_price: item["Original Price"] }, async function (err, obj) {
+									if (err) {
+										console.log(err)
+									}
+
+									var servObj;
+									if (obj) {
+										servObj = obj
+									} else {
+										const servObject = await service.create({ name: item["Service"], description: item["Description"], discounted: item["Discounted?"], original_price: item["Original Price"], discounted_price: item["Discounted Price"] })
+										servObj = servObject
+									}
+
+
+								})
 							})
 
 						})
