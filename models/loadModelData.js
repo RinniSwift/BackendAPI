@@ -7,7 +7,7 @@
 	// attach macro category to service location and service category (if not already in there) /
 	// find or create micro category /
 	// attach micro category to service location and macro category (if not already in there) /
-	// find or create service 
+	// find or create service /
 	// attach service to micro category and service location (if not already in there) 
 
 
@@ -153,7 +153,17 @@ fs.createReadStream('sampleData.csv')
 										servObj = servObject
 									}
 
-
+									// 9. Attach service to - micro category and - service location (if not already in there) 
+									const matchedServMic = await micObj.services.filter(item => item._id == String(servObj._id))
+									if (shouldAddTo(matchedServMic)) {
+										await micObj.services.push(servObj)
+										micObj.save()
+									}
+									const matchedServLoc = await locObj.services.filter(item => item._id == String(servObj._id))
+									if (shouldAddTo(matchedServLoc)) {
+										await locObj.services.push(servObj)
+										locObj.save()
+									}
 								})
 							})
 
