@@ -126,7 +126,6 @@ async function createOrFind(objec, query) {
 	try {
 		const doc = await objec.findOne(query);
 		if (doc) {
-		console.log(doc)
 		return doc
 	} else {
 		const obj = await objec.create(query)
