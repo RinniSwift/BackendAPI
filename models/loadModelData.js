@@ -42,139 +42,69 @@ fs.createReadStream('sampleData.csv')
 	.on('end', async () => {
 		console.log("END")
 
+
 		async function process(result) {
 
 			for (const item of result) {
 
 				// 1. Find or create service location
-				await serviceLocation.findOne({ name: item["Location"], hours: item["Hours"] }, async function(err, res) {
-					if (err) {
-						console.log(err)
+				const locObj = await createOrFind(serviceLocation, { name: item["Location"], hours: item["Hours"] })
+
+				// 2. Find or create service category
+				const catObj = await createOrFind(serviceCategory, { name: item["Service Category"] })
+
+				// 3. Attach service category to service location (if not already in there)
+					const matchedCats = await locObj.service_categories.filter(item => item._id == String(catObj._id))
+					if (shouldAddTo(matchedCats)) {
+						await locObj.service_categories.push(catObj._id)
+						locObj.save()
 					}
 
-					var locObj;
-					if (res) {
-						locObj = res
-					} else {
-						const locationObject = await serviceLocation.create({ name: item["Location"], hours: item["Hours"] })
-						locObj = locationObject
+				// 4. Find or create macro category
+				const macObj = await createOrFind(macroCategory, { name: item["Macro Category"] })
+
+				// 5. Attach macro category to - service location and - service category (if not already in there)
+					const matchedMacsLoc = await locObj.macro_categories.filter(item => item._id == String(macObj._id))
+					if (shouldAddTo(matchedMacsLoc)) {
+						await locObj.macro_categories.push(macObj._id)
+						locObj.save()
+					}
+					const matchedMacsCat = await catObj.macro_categories.filter(item => item._id == String(macObj._id))
+					if (shouldAddTo(matchedMacsCat)) {
+						await catObj.macro_categories.push(macObj._id)
+						catObj.save()
 					}
 
+				// 6. Find or create micro category
+				const micObj = await createOrFind(microCategory, { name: item["Micro Category"] })
 
-					// 2. Find or create service category
-					await serviceCategory.findOne({ name: item["Service Category"] }, async function (err, obj) {
-						if (err) {
-							console.log(err)
-						} 
+				// 7. Attach micro category to - service location and - macro category
+					const matchedMicsLoc = await locObj.micro_categories.filter(item => item._id == String(micObj._id))
+					if (shouldAddTo(matchedMicsLoc)) {
+						await locObj.micro_categories.push(micObj._id)
+						locObj.save()
+					}
+					const matchedMicsCat = await macObj.micro_categories.filter(item => item._id == String(micObj._id))
+					if (shouldAddTo(matchedMicsCat)) {
+						await macObj.micro_categories.push(micObj._id)
+						macObj.save()
+					}
 
-						var catObj;
-						if (obj) {
-							catObj = obj
-						} else {
-							const catObject = await serviceCategory.create({ name: item["Service Category"] })
-							catObj = catObject
-						}
+				// 8. Find or create service
+				const servObj = await createOrFind(service, { name: item["Service"], description: item["Description"], discounted: item["Discounted?"], original_price: item["Original Price"], discounted_price: item["Discounted Price"] })
 
-						
-						// 3. Attach service category to service location (if not already in there)
-						const matchedCats = await locObj.service_categories.filter(item => item._id == String(catObj._id))
-						if (shouldAddTo(matchedCats)) {
-							await locObj.service_categories.push(catObj._id)
-							locObj.save()
-						}
-
-
-						// 4. Find or create macro category
-						await macroCategory.findOne({ name: item["Macro Category"] }, async function (err, obj) {
-							if (err) {
-								console.log(err)
-							}
-
-							var macObj;
-							if (obj) {
-								macObj = obj
-							} else {
-								const macObject = await macroCategory.create({ name: item["Macro Category"] })
-								macObj = macObject
-							}
-
-							// 5. Attach macro category to - service location and - service category (if not already in there)
-							const matchedMacsLoc = await locObj.macro_categories.filter(item => item._id == String(macObj._id))
-							if (shouldAddTo(matchedMacsLoc)) {
-								await locObj.macro_categories.push(macObj._id)
-								locObj.save()
-							}
-							const matchedMacsCat = await catObj.macro_categories.filter(item => item._id == String(macObj._id))
-							if (shouldAddTo(matchedMacsCat)) {
-								await catObj.macro_categories.push(macObj._id)
-								catObj.save()
-							}
-
-
-							// 6. Find or create micro category
-							await microCategory.findOne({ name: item["Micro Category"] }, async function (err, obj) {
-								if (err) {
-									console.log(err)
-								}
-
-								var micObj;
-								if (obj) {
-									micObj = obj
-								} else {
-									const micObject = await microCategory.create({ name: item["Micro Category"] })
-									micObj = micObject
-								}
-
-
-								// 7. Attach micro category to - service location and - macro category
-								const matchedMicsLoc = await locObj.micro_categories.filter(item => item._id == String(micObj._id))
-								if (shouldAddTo(matchedMicsLoc)) {
-									await locObj.micro_categories.push(micObj._id)
-									locObj.save()
-								}
-								const matchedMicsCat = await macObj.micro_categories.filter(item => item._id == String(micObj._id))
-								if (shouldAddTo(matchedMacsCat)) {
-									await macObj.micro_categories.push(micObj._id)
-									macObj.save()
-								}
-
-
-								// 8. Find or create service
-								await service.findOne({ name: item["Service"], discounted: item["Discounted?"], original_price: item["Original Price"] }, async function (err, obj) {
-									if (err) {
-										console.log(err)
-									}
-
-									var servObj;
-									if (obj) {
-										servObj = obj
-									} else {
-										const servObject = await service.create({ name: item["Service"], description: item["Description"], discounted: item["Discounted?"], original_price: item["Original Price"], discounted_price: item["Discounted Price"] })
-										servObj = servObject
-									}
-
-									// 9. Attach service to - micro category and - service location (if not already in there) 
-									const matchedServMic = await micObj.services.filter(item => item._id == String(servObj._id))
-									if (shouldAddTo(matchedServMic)) {
-										await micObj.services.push(servObj)
-										micObj.save()
-									}
-									const matchedServLoc = await locObj.services.filter(item => item._id == String(servObj._id))
-									if (shouldAddTo(matchedServLoc)) {
-										await locObj.services.push(servObj)
-										locObj.save()
-									}
-								})
-							})
-
-						})
-
-					})
-
-				}) 
-
+				// 9. Attach service to - micro category and - service location (if not already in there)
+					const matchedServMic = await micObj.services.filter(item => item._id == String(servObj._id))
+					if (shouldAddTo(matchedServMic)) {
+						await micObj.services.push(servObj)
+						micObj.save()
+					}
+					const matchedServLoc = await locObj.services.filter(item => item._id == String(servObj._id))
+					if (shouldAddTo(matchedServLoc)) {
+						await locObj.services.push(servObj)
+						locObj.save()
+					}
 			}
-
 			console.log('Done!')
 		}
 		await process(result)
@@ -188,6 +118,22 @@ function shouldAddTo(items) {
 		return true
 	} else {
 		return false
+	}
+}
+
+
+async function createOrFind(objec, query) {
+	try {
+		const doc = await objec.findOne(query);
+		if (doc) {
+		console.log(doc)
+		return doc
+	} else {
+		const obj = await objec.create(query)
+		return obj
+	}
+	} catch(Error) {
+		console.log("Error occurred")
 	}
 }
 
