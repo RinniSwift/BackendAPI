@@ -13,14 +13,6 @@ const allServiceRouter = require('./controllers/allServices'),
 	  authRouter = require('./controllers/auth');
 
 
-// - Model Setup
-
-const macroCategory = require('./models/macroCategory');
-const microCategory = require('./models/microCategory');
-const serviceCategory = require('./models/serviceCategory');
-const serviceLocation = require('./models/serviceLocation');
-
-
 // - Creating Data
 
 const script = require('./models/loadModelData');
@@ -47,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // - Routes
 
 app.get('/', (req, res) => {
-	res.send('Hello World!')
+	res.send('Savai API')
 })
 
 app.use('/allServices', allServiceRouter)
