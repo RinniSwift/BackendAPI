@@ -23,45 +23,12 @@ const serviceLocation = require('./models/serviceLocation');
 
 // - Creating Data
 
-// const hello = async () => {
-
-
-// 	try {
-// 		const a = await microCategory.create({ name: "Eyebrow Tinting"})
-// 		const b = await microCategory.create({ name: "Tinting"})
-		// const c = await microCategory.create({ name: "Eyelash Perm"})
-		// const d = await microCategory.create({ name: "Eyelash Removal"})
-		// const e = await microCategory.create({ name: "Eyelash Tinting"})
-		// const e = await microCategory.create({ name: "Tinting"})
-
-		
-// 		const category = await macroCategory.findById("5d15238bd591dc20208ab548") // Eyebrow
-
-
-// 		const arr = [a,b]
-// 		arr.forEach(function(item, index) {
-// 			category.micro_categories.push(item._id)
-// 		});
-		
-
-
-// 		await category.save()
-// 	} catch(err) {
-// 		console.log(err)
-// 		console.log("errorrr")
-// 	}
-// }
-
-// hello()
-
-
-// - End Creating Data
-
+const script = require('./models/loadModelData');
 
 
 // - Database Setup
 
-mongoose.connect(process.env.DATABASEURI);
+mongoose.connect(process.env.DATABASEURI, { useNewUrlParser: true });
 
 
 // - Initial Setup
